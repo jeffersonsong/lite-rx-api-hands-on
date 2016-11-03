@@ -74,12 +74,12 @@ public class Part11BlockingToReactive {
 
     // TODO Insert users contained in the Flux parameter in the blocking repository using an parallel scheduler
     Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
-        return Mono.create(s -> {
+        return Mono.<Void>create(s -> {
             for (User user : flux.toIterable()) {
                 repository.save(user);
             }
             s.success();
-        });
+        }).subscribeOn(Schedulers.parallel());
     }
 
 }
