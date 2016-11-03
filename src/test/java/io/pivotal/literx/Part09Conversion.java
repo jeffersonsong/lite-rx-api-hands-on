@@ -52,15 +52,15 @@ public class Part09Conversion {
 
 //========================================================================================
 
-    @Test
-    public void adaptToObservable() {
-        Flux<User> flux = repository.findAll();
-        Observable<User> observable = fromFluxToObservable(flux);
-        StepVerifier.create(fromObservableToFlux(observable))
-                .expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-                .expectComplete()
-                .verify();
-    }
+	@Test
+	public void adaptToObservable() {
+		Flux<User> flux = repository.findAll();
+		Observable<User> observable = fromFluxToObservable(flux);
+		StepVerifier.create(fromObservableToFlux(observable))
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify();
+	}
 
     // TODO Convert Flux to RxJava Observable
     Observable<User> fromFluxToObservable(Flux<User> flux) {
@@ -74,15 +74,15 @@ public class Part09Conversion {
 
 //========================================================================================
 
-    @Test
-    public void adaptToSingle() {
-        Mono<User> mono = repository.findFirst();
-        Single<User> single = fromMonoToSingle(mono);
-        StepVerifier.create(fromSingleToMono(single))
-                .expectNext(User.SKYLER)
-                .expectComplete()
-                .verify();
-    }
+	@Test
+	public void adaptToSingle() {
+		Mono<User> mono = repository.findFirst();
+		Single<User> single = fromMonoToSingle(mono);
+		StepVerifier.create(fromSingleToMono(single))
+				.expectNext(User.SKYLER)
+				.expectComplete()
+				.verify();
+	}
 
     // TODO Convert Mono to RxJava Single
     Single<User> fromMonoToSingle(Mono<User> mono) {
@@ -96,15 +96,15 @@ public class Part09Conversion {
 
 //========================================================================================
 
-    @Test
-    public void adaptToFlowable() {
-        Flux<User> flux = repository.findAll();
-        Observable<User> observable = fromFluxToObservable(flux);
-        StepVerifier.create(fromObservableToFlux(observable))
-                .expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-                .expectComplete()
-                .verify();
-    }
+	@Test
+	public void adaptToFlowable() {
+		Flux<User> flux = repository.findAll();
+		Observable<User> observable = fromFluxToObservable(flux);
+		StepVerifier.create(fromObservableToFlux(observable))
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify();
+	}
 
     // TODO Convert Flux to RxJava Flowable
     Flowable<User> fromFluxToFlowable(Flux<User> flux) {
@@ -118,15 +118,15 @@ public class Part09Conversion {
 
 //========================================================================================
 
-    @Test
-    public void transformToCompletableFuture() {
-        Mono<User> mono = repository.findFirst();
-        CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
-        StepVerifier.create(fromCompletableFutureToMono(future))
-                .expectNext(User.SKYLER)
-                .expectComplete()
-                .verify();
-    }
+	@Test
+	public void transformToCompletableFuture() {
+		Mono<User> mono = repository.findFirst();
+		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
+		StepVerifier.create(fromCompletableFutureToMono(future))
+				.expectNext(User.SKYLER)
+				.expectComplete()
+				.verify();
+	}
 
     // TODO Transform Mono to Java 8+ CompletableFuture
     CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
@@ -140,15 +140,15 @@ public class Part09Conversion {
 
 //========================================================================================
 
-    @Test
-    public void transformToList() {
-        Flux<User> flux = repository.findAll();
-        List<User> list = fromFluxToList(flux);
-        StepVerifier.create(fromListToFlux(list))
-                .expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-                .expectComplete()
-                .verify();
-    }
+	@Test
+	public void transformToList() {
+		Flux<User> flux = repository.findAll();
+		List<User> list = fromFluxToList(flux);
+		StepVerifier.create(fromListToFlux(list))
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify();
+	}
 
     // TODO Transform Flux to List
     List<User> fromFluxToList(Flux<User> flux) {

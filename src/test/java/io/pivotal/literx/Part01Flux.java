@@ -1,14 +1,10 @@
 package io.pivotal.literx;
 
-import java.time.Duration;
-import java.util.Arrays;
-
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 import static java.util.Arrays.asList;
 
@@ -31,10 +27,10 @@ public class Part01Flux {
 				.verify();
 	}
 
-    // TODO Return an empty Flux
-    Flux<String> emptyFlux() {
-        return Flux.empty();
-    }
+	// TODO Return an empty Flux
+	Flux<String> emptyFlux() {
+		return Flux.empty();
+	}
 
 //========================================================================================
 
@@ -47,10 +43,10 @@ public class Part01Flux {
 				.verify();
 	}
 
-    // TODO Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
-    Flux<String> fooBarFluxFromValues() {
-        return Flux.just("foo", "bar");
-    }
+	// TODO Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
+	Flux<String> fooBarFluxFromValues() {
+		return Flux.just("foo", "bar");
+	}
 
 //========================================================================================
 
@@ -63,10 +59,10 @@ public class Part01Flux {
 				.verify();
 	}
 
-    // TODO Create a Flux from a List that contains 2 values "foo" and "bar"
-    Flux<String> fooBarFluxFromList() {
-        return Flux.fromIterable(asList("foo", "bar"));
-    }
+	// TODO Create a Flux from a List that contains 2 values "foo" and "bar"
+	Flux<String> fooBarFluxFromList() {
+		return Flux.fromIterable(asList("foo", "bar"));
+	}
 
 //========================================================================================
 
@@ -93,10 +89,11 @@ public class Part01Flux {
 				.verify();
 	}
 
-    // TODO Create a Flux that emits increasing values from 0 to 9 each 100ms
-    Flux<Long> counter() {
-        return Flux.zip(Flux.fromStream(IntStream.range(0, 10).boxed()), Flux.intervalMillis(100),
+	// TODO Create a Flux that emits increasing values from 0 to 9 each 100ms
+	Flux<Long> counter() {
+		return Flux.zip(Flux.fromStream(IntStream.range(0, 10).boxed()), Flux.intervalMillis(100),
                 (s1, s2) -> s2);
-    }
+	}
+
 
 }
