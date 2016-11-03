@@ -25,7 +25,7 @@ public class Part02Mono {
 
 	// TODO Return an empty Mono
 	Mono<String> emptyMono() {
-		return null;
+		return Mono.empty();
 	}
 
 //========================================================================================
@@ -41,7 +41,7 @@ public class Part02Mono {
 
 	// TODO Return a Mono that contains a "foo" value
 	Mono<String> fooMono() {
-		return null;
+		return Mono.just("foo");
 	}
 
 //========================================================================================
@@ -56,7 +56,7 @@ public class Part02Mono {
 
 	// TODO Create a Mono that emits an IllegalStateException
 	Mono<String> errorMono() {
-		return null;
+		return Mono.error(new IllegalStateException());
 	}
 
 }

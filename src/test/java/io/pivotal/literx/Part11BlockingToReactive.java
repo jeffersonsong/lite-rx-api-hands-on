@@ -46,7 +46,10 @@ public class Part11BlockingToReactive {
 
 	// TODO Create a Flux for reading all users from the blocking repository, and run it with an elastic scheduler
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
-		return null;
+		return Flux.<User>create(s -> {
+			repository.findAll().forEach(u -> s.next(u));
+			s.complete();
+		}).subscribeOn(Schedulers.elastic());
 	}
 
 //========================================================================================
@@ -70,7 +73,7 @@ public class Part11BlockingToReactive {
 
 	// TODO Insert users contained in the Flux parameter in the blocking repository using an parallel scheduler
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
-		return null;
+		return flux.subscribeOn(Schedulers.parallel()).doOnNext(user -> repository.save(user)).then();
 	}
 
 }

@@ -4,6 +4,8 @@ import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
@@ -14,7 +16,9 @@ import reactor.test.StepVerifier;
  */
 public class Part06Request {
 
-	ReactiveRepository<User> repository = new ReactiveUserRepository();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Part06Request.class);
+
+    ReactiveRepository<User> repository = new ReactiveUserRepository();
 
 //========================================================================================
 
@@ -27,8 +31,9 @@ public class Part06Request {
 
 	// TODO Create a Verifier that requests initially all values and expect a 4 values to be received
 	StepVerifier requestAllExpectFour(Flux<User> flux) {
-		return null;
-	}
+        return StepVerifier.create(flux).expectNextCount(4)
+                .expectComplete();
+    }
 
 //========================================================================================
 
@@ -41,7 +46,13 @@ public class Part06Request {
 
 	// TODO Create a Verifier that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
 	StepVerifier requestOneExpectSkylerThenRequestOneExpectJesse(Flux<User> flux) {
-		return null;
+        return StepVerifier.create(flux, 0)
+                .thenRequest(1)
+                .expectNextWith(u -> u == User.SKYLER)
+                .thenRequest(1)
+                .expectNextWith(u -> u == User.JESSE)
+                .expectNextCount(2)
+                .expectComplete();
 	}
 
 //========================================================================================
@@ -61,10 +72,10 @@ public class Part06Request {
 				.verify();
 	}
 
-	// TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
-	Flux<User> fluxWithLog() {
-		return null;
-	}
+    // TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
+    Flux<User> fluxWithLog() {
+        return repository.findAll().log();
+    }
 
 
 //========================================================================================
@@ -78,9 +89,10 @@ public class Part06Request {
 				.verify();
 	}
 
-	// TODO Return a Flux with all users stored in the repository that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
-	Flux<User> fluxWithDoOnPrintln() {
-		return null;
-	}
+    // TODO Return a Flux with all users stored in the repository that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
+    Flux<User> fluxWithDoOnPrintln() {
+        return repository.findAll().doOnSubscribe(s -> LOGGER.info("Starring:"))
+                .doOnNext(user -> LOGGER.info(String.format("%s %s", user.getFirstname(), user.getLastname()))).doOnComplete(() -> LOGGER.info("The end!"));
+    }
 
 }
